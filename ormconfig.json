@@ -1,0 +1,18 @@
+{
+  "type": "postgres",
+  "host": "localhost",
+  "port": 5432,
+  "username": "casefortbrasil",
+  "password": "qwer1q2w3e4r",
+  "database": "casefortbrasil",
+  "logging": false,
+  "migrations": [
+    "./src/shared/infra/typeorm/migrations/*.ts"
+  ],
+  "cli": {
+    "migrationsDir": "./src/shared/infra/typeorm/migrations"
+  },
+  "entities": [
+    "./src/modules/**/infra/typeorm/entities/*.ts"
+  ]
+}
