@@ -11,6 +11,11 @@ export default class UpdateUserController {
 
     const user = await updateUserUseCase.execute({ id, firstName, lastName });
 
-    return response.status(204).json(user);
+    delete user.id;
+    delete user.password;
+    delete user.isActive;
+    delete user.email;
+
+    return response.json(user);
   }
 }

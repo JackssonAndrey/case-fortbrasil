@@ -9,6 +9,10 @@ export default class ProfileUserController {
 
     const user = await profileUserUseCase.execute(id);
 
+    delete user.id;
+    delete user.password;
+    delete user.isActive;
+
     return response.json(user);
   }
 }
