@@ -45,6 +45,6 @@ describe('Get all establishments', () => {
 
     const establishments = await getAllEstablishmentsUseCase.execute(userId);
 
-    expect(establishments).toEqual([establishment]);
+    expect(establishments).toEqual([]);
   });
 });

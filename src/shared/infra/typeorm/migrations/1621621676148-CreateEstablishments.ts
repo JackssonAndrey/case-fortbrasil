@@ -14,7 +14,8 @@ export class CreateEstablishments1621621676148 implements MigrationInterface {
           },
           {
             name: 'addressId',
-            type: 'uuid'
+            type: 'uuid',
+            isNullable: true,
           },
           {
             name: 'userId',
