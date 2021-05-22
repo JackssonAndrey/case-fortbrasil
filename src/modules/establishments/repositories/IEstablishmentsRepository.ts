@@ -7,6 +7,5 @@ export default interface IEstablishmentsRepository {
   findById(id: string): Promise<Establishment>;
   findByName(name: string): Promise<Establishment>;
   deactivate(id: string): Promise<Establishment>;
-  findByLocation(latitude: string, longitude: string): Promise<Establishment>;
   getAll(userId: string): Promise<Establishment[]>;
 }

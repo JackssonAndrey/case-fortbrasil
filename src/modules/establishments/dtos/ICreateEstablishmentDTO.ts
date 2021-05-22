@@ -1,4 +1,6 @@
-export default interface ICreateEstablishmentDTO {
+import ICreateAddressDTO from '@modules/addresses/dtos/ICreateAddressDTO';
+
+export default interface ICreateEstablishmentDTO extends ICreateAddressDTO {
   id?: string;
   address?: string;
   user?: string;

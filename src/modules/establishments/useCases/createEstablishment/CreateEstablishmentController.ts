@@ -14,7 +14,14 @@ export default class CreateEstablishmentController {
       mail,
       phone,
       stateRegistration,
-      municipalRegistration
+      municipalRegistration,
+      street,
+      city,
+      complement,
+      number,
+      zipCode,
+      latitude,
+      longitude
     } = request.body;
 
     const createEstablishmentUseCase = container.resolve(CreateEstablishmentUseCase);
@@ -28,7 +35,14 @@ export default class CreateEstablishmentController {
       mail,
       phone,
       stateRegistration,
-      municipalRegistration
+      municipalRegistration,
+      street,
+      city,
+      complement,
+      number,
+      zipCode,
+      latitude,
+      longitude
     });
 
     return response.status(201).json(establishment);

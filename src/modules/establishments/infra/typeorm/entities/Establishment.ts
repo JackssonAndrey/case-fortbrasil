@@ -1,4 +1,5 @@
 import User from '@modules/accounts/infra/typeorm/entities/User';
+import Address from '@modules/addresses/infra/typeorm/entities/Address';
 import { Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryColumn } from 'typeorm';
 import { v4 as uuid } from 'uuid';
 
@@ -7,15 +8,19 @@ export default class Establishment {
   @PrimaryColumn()
   id: string;
 
-  @OneToOne(() => User)
-  @JoinColumn()
-  user: User;
-
   @Column()
   userId: string;
 
+  @OneToOne(() => User)
+  @JoinColumn({ name: 'userId' })
+  user: User;
+
   @Column()
   addressId: string;
+
+  @OneToOne(() => Address)
+  @JoinColumn({ name: 'addressId' })
+  address: Address;
 
   @Column()
   companyName: string;

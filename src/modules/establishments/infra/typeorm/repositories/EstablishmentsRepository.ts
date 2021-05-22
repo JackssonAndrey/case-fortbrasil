@@ -1,4 +1,5 @@
 import User from '@modules/accounts/infra/typeorm/entities/User';
+import Address from '@modules/addresses/infra/typeorm/entities/Address';
 import ICreateEstablishmentDTO from '@modules/establishments/dtos/ICreateEstablishmentDTO';
 import IEstablishmentsRepository from '@modules/establishments/repositories/IEstablishmentsRepository';
 import { getRepository, Repository } from 'typeorm';
@@ -7,10 +8,12 @@ import Establishment from '../entities/Establishment';
 export default class EstablishmentsRepository implements IEstablishmentsRepository {
   private repository: Repository<Establishment>;
   private userRepository: Repository<User>;
+  private addressRepository: Repository<Address>;
 
   constructor() {
     this.repository = getRepository(Establishment);
     this.userRepository = getRepository(User);
+    this.addressRepository = getRepository(Address);
   }
 
   async create({
@@ -22,9 +25,28 @@ export default class EstablishmentsRepository implements IEstablishmentsReposito
     phone,
     user,
     stateRegistration,
-    municipalRegistration
+    municipalRegistration,
+    street,
+    city,
+    complement,
+    number,
+    zipCode,
+    latitude,
+    longitude
   }: ICreateEstablishmentDTO): Promise<Establishment> {
     const userData = await this.userRepository.findOne(user);
+
+    const address = this.addressRepository.create({
+      street,
+      city,
+      complement,
+      number,
+      zipCode,
+      latitude,
+      longitude
+    });
+
+    await this.addressRepository.save(address);
 
     const establishment = this.repository.create({
       companyName,
@@ -35,7 +57,8 @@ export default class EstablishmentsRepository implements IEstablishmentsReposito
       phone,
       user: userData,
       stateRegistration,
-      municipalRegistration
+      municipalRegistration,
+      address,
     });
 
     await this.repository.save(establishment);
@@ -71,12 +94,18 @@ export default class EstablishmentsRepository implements IEstablishmentsReposito
   }
 
   async findById(id: string): Promise<Establishment> {
-    const establishment = await this.repository.findOne({ where: { id, isActive: true } });
+    const establishment = await this.repository.findOne({ where: { id, isActive: true }, relations: ['addresses'] });
     return establishment;
   }
 
   async findByName(name: string): Promise<Establishment> {
-    const establishment = await this.repository.findOne({ where: { companyName: name, isActive: true } });
+    const establishment = await this.repository.findOne({
+      where: {
+        companyName: name,
+        isActive: true
+      },
+      relations: ['addresses']
+    });
     return establishment;
   }
 
@@ -88,10 +117,6 @@ export default class EstablishmentsRepository implements IEstablishmentsReposito
     await this.repository.save(establishment);
 
     return establishment;
-  }
-
-  findByLocation(latitude: string, longitude: string): Promise<Establishment> {
-    throw new Error('Method not implemented.');
   }
 
   async getAll(userId: string): Promise<Establishment[]> {

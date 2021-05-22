@@ -1,10 +1,11 @@
+import Address from '@modules/addresses/infra/typeorm/entities/Address';
 import ICreateEstablishmentDTO from '@modules/establishments/dtos/ICreateEstablishmentDTO';
 import Establishment from '@modules/establishments/infra/typeorm/entities/Establishment';
-import { AppError } from '@shared/errors/AppError';
 import IEstablishmentsRepository from '../IEstablishmentsRepository';
 
 export default class EstablishmentsRepositoryInMemory implements IEstablishmentsRepository {
   establishments: Establishment[] = [];
+  addresses: Address[] = [];
 
   async create({
     companyName,
@@ -15,9 +16,29 @@ export default class EstablishmentsRepositoryInMemory implements IEstablishments
     phone,
     user,
     stateRegistration,
-    municipalRegistration
+    municipalRegistration,
+    street,
+    city,
+    complement,
+    number,
+    zipCode,
+    latitude,
+    longitude
   }: ICreateEstablishmentDTO): Promise<Establishment> {
     const establishment = new Establishment();
+    const address = new Address();
+
+    Object.assign(address, {
+      street,
+      city,
+      complement,
+      number,
+      zipCode,
+      latitude,
+      longitude
+    });
+
+    this.addresses.push(address);
 
     Object.assign(establishment, {
       companyName,
@@ -28,7 +49,8 @@ export default class EstablishmentsRepositoryInMemory implements IEstablishments
       phone,
       user,
       stateRegistration,
-      municipalRegistration
+      municipalRegistration,
+      address
     });
 
     this.establishments.push(establishment);
@@ -81,10 +103,6 @@ export default class EstablishmentsRepositoryInMemory implements IEstablishments
     this.establishments[index].isActive = false;
 
     return establishment;
-  }
-
-  async findByLocation(latitude: string, longitude: string): Promise<Establishment> {
-    throw new Error('Method not implemented.');
   }
 
   async getAll(userId: string): Promise<Establishment[]> {

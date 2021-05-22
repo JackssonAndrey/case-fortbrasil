@@ -22,7 +22,14 @@ export default class CreateEstablishmentUseCase {
     phone,
     user,
     stateRegistration,
-    municipalRegistration
+    municipalRegistration,
+    street,
+    city,
+    complement,
+    number,
+    zipCode,
+    latitude,
+    longitude
   }: ICreateEstablishmentDTO): Promise<Establishment> {
     const establishment = await this.establishmentRepository.create({
       companyName,
@@ -33,7 +40,14 @@ export default class CreateEstablishmentUseCase {
       phone,
       user,
       stateRegistration,
-      municipalRegistration
+      municipalRegistration,
+      street,
+      city,
+      complement,
+      number,
+      zipCode,
+      latitude,
+      longitude
     });
 
     if (!establishment) throw new AppError('The record could not be created.');
