@@ -1,5 +1,6 @@
 import Address from '@modules/addresses/infra/typeorm/entities/Address';
 import ICreateEstablishmentDTO from '@modules/establishments/dtos/ICreateEstablishmentDTO';
+import IUpdateEstablishmentDTO from '@modules/establishments/dtos/IUpdateEstablishmentDTO';
 import Establishment from '@modules/establishments/infra/typeorm/entities/Establishment';
 import IEstablishmentsRepository from '../IEstablishmentsRepository';
 
@@ -68,7 +69,7 @@ export default class EstablishmentsRepositoryInMemory implements IEstablishments
     phone,
     stateRegistration,
     municipalRegistration
-  }: ICreateEstablishmentDTO): Promise<Establishment> {
+  }: IUpdateEstablishmentDTO): Promise<Establishment> {
     const index = this.establishments.findIndex((establishment) => establishment.id === id);
 
     const establishmentUpdated = {

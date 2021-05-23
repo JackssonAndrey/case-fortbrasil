@@ -1,8 +1,8 @@
 import ICreateEstablishmentDTO from '@modules/establishments/dtos/ICreateEstablishmentDTO';
+import IUpdateEstablishmentDTO from '@modules/establishments/dtos/IUpdateEstablishmentDTO';
 import Establishment from '@modules/establishments/infra/typeorm/entities/Establishment';
 import IEstablishmentsRepository from '@modules/establishments/repositories/IEstablishmentsRepository';
 import { inject, injectable } from 'tsyringe';
-
 
 @injectable()
 export default class UpdateEstablishmentUseCase {
@@ -23,7 +23,7 @@ export default class UpdateEstablishmentUseCase {
     phone,
     stateRegistration,
     municipalRegistration
-  }: ICreateEstablishmentDTO): Promise<Establishment> {
+  }: IUpdateEstablishmentDTO): Promise<Establishment> {
     const establishment = await this.establishmentRepository.update({
       id,
       companyName,

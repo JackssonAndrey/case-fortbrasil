@@ -26,6 +26,13 @@ describe('Details Establishment', () => {
       municipalRegistration: '343430',
       stateRegistration: '232320',
       phone: '(85) 9 9999-9999',
+      street: 'Street test',
+      city: 'City test',
+      complement: 'Complement test',
+      number: '9090',
+      zipCode: '2323.230',
+      latitude: '2930i2039',
+      longitude: '343209023'
     }
 
     const { id } = await createEstablishmentUseCase.execute(data);

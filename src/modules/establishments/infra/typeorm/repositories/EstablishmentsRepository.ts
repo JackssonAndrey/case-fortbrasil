@@ -94,7 +94,7 @@ export default class EstablishmentsRepository implements IEstablishmentsReposito
   }
 
   async findById(id: string): Promise<Establishment> {
-    const establishment = await this.repository.findOne({ where: { id, isActive: true }, relations: ['addresses'] });
+    const establishment = await this.repository.findOne({ where: { id, isActive: true } });
     return establishment;
   }
 

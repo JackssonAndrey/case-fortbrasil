@@ -18,8 +18,8 @@ export default class Establishment {
   @Column()
   addressId: string;
 
-  @OneToOne(() => Address)
-  @JoinColumn({ name: 'addressId' })
+  @OneToOne(() => Address, { eager: true, cascade: true })
+  @JoinColumn()
   address: Address;
 
   @Column()
